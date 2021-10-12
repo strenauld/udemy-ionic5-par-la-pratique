@@ -1,0 +1,7 @@
+{
+  "name": "ionic5_freezer_manager_udemy",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
