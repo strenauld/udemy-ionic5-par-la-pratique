@@ -25,7 +25,7 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button (click)="add()">ADD</ion-button>
+            <ion-button (click)="add()" [disabled]="!this.form.valid">ADD</ion-button>
           </ion-col>
         </ion-row>     
       </ion-grid>
