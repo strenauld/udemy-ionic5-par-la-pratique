@@ -1,6 +1,6 @@
 import { Food } from './../interfaces/food.model';
 import { FoodService } from './../services/food.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page implements OnInit, OnDestroy {
   sub: Subscription;
   allFoodInFreezer = [];
 
@@ -27,6 +27,10 @@ export class Tab2Page implements OnInit {
   // Ne sert plus à rien puisqu'on est abonné à la collection de données
   ionViewWillEnter(){
     // this.allFoodInFreezer = this._foodCollection.valueChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }
