@@ -14,8 +14,7 @@ export class FoodService {
     return this._afs.collection('freezer').snapshotChanges();
   }
 
-  addFood(foodItem: Food): void {
-    // this. _allFood = [foodItem, ...this._allFood];
-    // console.log(this._allFood);
+  addFood(foodItem: Food) {
+    return this._afs.collection('freezer').add(foodItem)
   }
 }
