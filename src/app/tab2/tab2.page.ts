@@ -3,6 +3,8 @@ import { FoodService } from './../services/food.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators'
+import { ModalController } from '@ionic/angular';
+import { EditModal } from './edit.modal';
 
 @Component({
   selector: 'app-tab2',
@@ -14,7 +16,8 @@ export class Tab2Page implements OnInit, OnDestroy {
   allFoodInFreezer = [];
   isLoading = false;
 
-  constructor(private _foodService: FoodService) {}
+  constructor(private _foodService: FoodService,
+              private _modalCtrl: ModalController) {}
   
   ngOnInit(): void {
     this.sub = this._foodService.allFood().subscribe(data => {
@@ -31,8 +34,13 @@ export class Tab2Page implements OnInit, OnDestroy {
     // this.allFoodInFreezer = this._foodCollection.valueChanges();
   }
 
-  edit(id) {
+  async edit(id) {
     console.log('id:', id);
+    const modal = await this._modalCtrl.create({
+      component: EditModal,
+      componentProps: { 'foodId': id }
+    });
+    return await modal.present();
   }
 
   delete(id) {
