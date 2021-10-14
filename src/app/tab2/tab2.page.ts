@@ -29,6 +29,14 @@ export class Tab2Page implements OnInit, OnDestroy {
     // this.allFoodInFreezer = this._foodCollection.valueChanges();
   }
 
+  edit(id) {
+    console.log('id:', id);
+  }
+
+  delete(id) {
+    console.log('id:', id);
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
