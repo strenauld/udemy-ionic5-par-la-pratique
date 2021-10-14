@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class Tab1Page implements OnInit {
   form: FormGroup;
+  isLoading = false;
 
   constructor(private _foodService: FoodService) {}
 
@@ -24,14 +25,14 @@ export class Tab1Page implements OnInit {
   }
 
   add(): void {
-    console.log(this.form);
-    // this._foodService.addFood(this.form.value);
-    // this.form.reset();
+    this.isLoading = true;
     this._foodService.addFood(this.form.value).then(data => {
       console.log('data:', data);
+      this.isLoading = false;
     })
     .catch(err => {
       console.error(err);
+      this.isLoading = false;
     })
   }
 
