@@ -28,6 +28,7 @@ export class Tab1Page implements OnInit {
     this.isLoading = true;
     this._foodService.addFood(this.form.value).then(data => {
       console.log('data:', data);
+      this.form.reset();
       this.isLoading = false;
     })
     .catch(err => {
