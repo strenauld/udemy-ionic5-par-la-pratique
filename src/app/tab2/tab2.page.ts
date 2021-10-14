@@ -3,7 +3,7 @@ import { FoodService } from './../services/food.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators'
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { EditModal } from './edit.modal';
 
 @Component({
@@ -17,7 +17,8 @@ export class Tab2Page implements OnInit, OnDestroy {
   isLoading = false;
 
   constructor(private _foodService: FoodService,
-              private _modalCtrl: ModalController) {}
+              private _modalCtrl: ModalController,
+              private _alertCltr: AlertController) {}
   
   ngOnInit(): void {
     this.sub = this._foodService.allFood().subscribe(data => {
@@ -43,18 +44,42 @@ export class Tab2Page implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  delete(id) {
+  async delete(id) {
     console.log('id:', id);
     this.isLoading = true;
-    this._foodService.deleteFood(id).pipe(
-      take(1)
-    )
-    .subscribe(data => {
-      this.isLoading = false;
-    }, err => {
-      this.isLoading = false;
-      console.error(err);
+
+    const alert = await this._alertCltr.create({
+      header: "Delete this food ?",
+      subHeader: "Deletion is irreversible",
+      buttons: [
+        {
+          text: "Cancel",
+          cssClass: "primary",
+          role: "cancel",
+          handler: () => {
+            this.isLoading = false;
+          }
+        },
+        {
+          text: "Delete",
+          cssClass: "danger",
+          handler: () => {
+            this._foodService.deleteFood(id).pipe(
+              take(1)
+            )
+            .subscribe(data => {
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
+              console.error(err);
+            })
+          }
+        }
+      ]
     })
+    
+    alert.present();
+
   }
 
   ngOnDestroy(): void {
