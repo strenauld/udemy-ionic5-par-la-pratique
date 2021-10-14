@@ -1,4 +1,4 @@
-import { AngularFirestore, DocumentChangeAction, DocumentReference } from '@angular/fire/compat/firestore';
+import { Action, AngularFirestore, DocumentChangeAction, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 
 import { Food } from '../interfaces/food.model';
@@ -13,6 +13,10 @@ export class FoodService {
 
   allFood(): Observable<DocumentChangeAction<unknown>[]> {
     return this._afs.collection('freezer').snapshotChanges();
+  }
+
+  getFood(id: string): Observable<Action<DocumentSnapshot<{}>>> {
+    return this._afs.collection('freezer').doc(id).snapshotChanges();
   }
 
   addFood(foodItem: Food): Promise<DocumentReference> {
