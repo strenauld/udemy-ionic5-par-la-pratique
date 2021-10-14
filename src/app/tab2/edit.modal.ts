@@ -1,7 +1,7 @@
 import { Food } from './../interfaces/food.model';
 import { FoodService } from './../services/food.service';
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -36,8 +36,20 @@ export class EditModal implements OnInit, OnDestroy {
     
     createForm() {
         this.form = this._formBuileder.group({
-            foodName: new FormControl(this.foodItem.foodName),
-            datePlacedInFreezer: new FormControl(this.foodItem.datePlacedInFreezer)
+            foodName: new FormControl(this.foodItem.foodName, {
+                validators: [Validators.required]
+            }),
+            datePlacedInFreezer: new FormControl(this.foodItem.datePlacedInFreezer, {
+                validators: [Validators.required]
+            })
+        })
+    }
+
+    update() {
+        console.log(this.form);
+        const updatedFood= { ... this.form.value, id: this.foodItem.id };
+        this._foodService.updateFood(updatedFood).subscribe(() => {
+            console.log('update');
         })
     }
 

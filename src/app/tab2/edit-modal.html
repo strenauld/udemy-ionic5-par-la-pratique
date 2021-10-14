@@ -34,7 +34,12 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <ion-button>update</ion-button>
+                            <ion-button
+                            (click)="update()"
+                            [disabled]="!this.form.valid"
+                            expand="full"
+                            >update
+                            </ion-button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
