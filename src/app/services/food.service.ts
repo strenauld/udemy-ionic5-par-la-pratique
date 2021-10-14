@@ -1,20 +1,21 @@
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
+
 import { Food } from '../interfaces/food.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodService {
-  private _allFood: Food[] = [];
+  
+  constructor(private _afs: AngularFirestore) { }
 
-  get allFood() {
-    return this._allFood;
+  allFood() {
+    return this._afs.collection('freezer').snapshotChanges();
   }
 
-  constructor() { }
-
   addFood(foodItem: Food): void {
-    this. _allFood = [foodItem, ...this._allFood];
-    console.log(this._allFood);
+    // this. _allFood = [foodItem, ...this._allFood];
+    // console.log(this._allFood);
   }
 }
