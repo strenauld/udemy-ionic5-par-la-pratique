@@ -1,7 +1,7 @@
 import { Action, AngularFirestore, DocumentChangeAction, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 
-import { Food } from '../interfaces/food.model';
+import { Food } from '../interfaces/food.interface';
 import { from, Observable } from 'rxjs';
 
 @Injectable({

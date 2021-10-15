@@ -1,4 +1,4 @@
-import { Food } from './../interfaces/food.model';
+import { Food } from '../interfaces/food.interface';
 import { FoodService } from './../services/food.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
